@@ -261,16 +261,18 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
 
     <!-- Navigation Bar -->
     <div class="nav-bar">
-        <div class="logo">Instagram</div>
+        <div class="logo">Instagram Clone</div>
         <?php if (isset($_SESSION['username'])): ?>
             <div>
                 <a href="profile.php" class="profile-btn">Profile</a>
-                <!-- Logout Button aligned to the right -->
-                <form method="POST" action="" style="display: inline-block; margin-left: 20px;">
-                    <button type="submit" name="logout" class="logout-btn">Logout</button>
-                </form>
+                
             </div>
         <?php endif; ?>
+
+        <!-- Logout Button aligned to the right -->
+        <form method="POST" action="" style="display: inline-block; margin-left: 20px;">
+                    <button type="submit" name="logout" class="logout-btn">Logout</button>
+                </form>
     </div>
 
     <!-- Upload Button -->

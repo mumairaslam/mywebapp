@@ -12,10 +12,38 @@
             margin: 0;
             padding: 0;
         }
+        h1 {
+    width: 100%;
+    font-size: 40x;  /* Adjust the font size if needed */
+    text-align: center;
+    color:rgb(0, 0, 0);  /* Adjust the text color */
+    margin-top: 20px;  /* Adjust the top margin */
+    margin-bottom: 40px;  /* Adjust the bottom margin */
+    font-weight: 600;  /* Adjust the font weight */
+    border: 3px solidrgb(56, 57, 58);  /* Adds a border with the same color as the text */
+    border-radius: 15px;  /* Rounds the corners of the border */
+    padding: 10px 20px;  /* Adds space inside the border (padding) */
+    display: inline-block;  /* Makes the heading fit to the content size */
+}
 
         body {
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-            background: #ffffff;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            transition: background-color 1.2s ease;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         input,
@@ -47,10 +75,7 @@
             position: relative;
             width: 640px;
             height: 100%;
-            -webkit-transition: -webkit-transform 1.2s ease-in-out;
-            transition: -webkit-transform 1.2s ease-in-out;
             transition: transform 1.2s ease-in-out;
-            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
             padding: 50px 30px 0;
         }
 
@@ -63,14 +88,10 @@
             height: 100%;
             padding-left: 260px;
             background: #fff;
-            -webkit-transition: -webkit-transform 1.2s ease-in-out;
-            transition: -webkit-transform 1.2s ease-in-out;
             transition: transform 1.2s ease-in-out;
-            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
         }
 
         .cont.s--signup .sub-cont {
-            -webkit-transform: translate3d(-640px, 0, 0);
             transform: translate3d(-640px, 0, 0);
         }
 
@@ -83,6 +104,12 @@
             color: #fff;
             font-size: 15px;
             cursor: pointer;
+            background: #2575fc;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #6a11cb;
         }
 
         .img {
@@ -104,11 +131,9 @@
             width: 900px;
             height: 100%;
             background-image: url("ext.jpg");
-            opacity: .8;
+            opacity: 0.8;
             background-size: cover;
-            -webkit-transition: -webkit-transform 1.2s ease-in-out;
             transition: transform 1.2s ease-in-out;
-            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
         }
 
         .img:after {
@@ -122,7 +147,6 @@
         }
 
         .cont.s--signup .img:before {
-            -webkit-transform: translate3d(640px, 0, 0);
             transform: translate3d(640px, 0, 0);
         }
 
@@ -135,10 +159,7 @@
             padding: 0 20px;
             text-align: center;
             color: #fff;
-            -webkit-transition: -webkit-transform 1.2s ease-in-out;
-            transition: -webkit-transform 1.2s ease-in-out;
             transition: transform 1.2s ease-in-out;
-            transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;
         }
 
         .img__text h2 {
@@ -152,17 +173,14 @@
         }
 
         .cont.s--signup .img__text.m--up {
-            -webkit-transform: translateX(520px);
             transform: translateX(520px);
         }
 
         .img__text.m--in {
-            -webkit-transform: translateX(-520px);
             transform: translateX(-520px);
         }
 
         .cont.s--signup .img__text.m--in {
-            -webkit-transform: translateX(0);
             transform: translateX(0);
         }
 
@@ -196,32 +214,23 @@
             position: absolute;
             left: 0;
             top: 0;
-            display: -webkit-box;
             display: flex;
-            -webkit-box-pack: center;
             justify-content: center;
-            -webkit-box-align: center;
             align-items: center;
             width: 100%;
             height: 100%;
-            -webkit-transition: -webkit-transform 1.2s;
-            transition: -webkit-transform 1.2s;
             transition: transform 1.2s;
-            transition: transform 1.2s, -webkit-transform 1.2s;
         }
 
         .img__btn span.m--in {
-            -webkit-transform: translateY(-72px);
             transform: translateY(-72px);
         }
 
         .cont.s--signup .img__btn span.m--in {
-            -webkit-transform: translateY(0);
             transform: translateY(0);
         }
 
         .cont.s--signup .img__btn span.m--up {
-            -webkit-transform: translateY(72px);
             transform: translateY(72px);
         }
 
@@ -248,10 +257,20 @@
             display: block;
             width: 100%;
             margin-top: 5px;
-            padding-bottom: 5px;
+            padding: 10px 10px;
             font-size: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+            border: 2px solid #2575fc;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.8);
             text-align: center;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #6a11cb;
+            background: rgba(255, 255, 255, 1);
+            color: #6a11cb;
         }
 
         .forgot-pass {
@@ -264,7 +283,7 @@
         .submit {
             margin-top: 40px;
             margin-bottom: 20px;
-            background: #d4af7a;
+            background: #2575fc;
             text-transform: uppercase;
         }
 
@@ -279,34 +298,30 @@
         }
 
         .sign-in {
-            -webkit-transition-timing-function: ease-out;
             transition-timing-function: ease-out;
         }
 
         .cont.s--signup .sign-in {
-            -webkit-transition-timing-function: ease-in-out;
             transition-timing-function: ease-in-out;
-            -webkit-transition-duration: 1.2s;
             transition-duration: 1.2s;
-            -webkit-transform: translate3d(640px, 0, 0);
             transform: translate3d(640px, 0, 0);
         }
 
         .sign-up {
-            -webkit-transform: translate3d(-900px, 0, 0);
             transform: translate3d(-900px, 0, 0);
         }
 
         .cont.s--signup .sign-up {
-            -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
         }
     </style>
 </head>
 <body>
+    <h1> Welcome To Instagram Clone </h1>
     <div class="cont">
         <div class="form sign-in">
-            <h2>Welcome</h2>
+           <!-- <h2>Welcome To Instagram Clone</h2>  -->
+           <h2>Log In</h2>
             <label>
                 <span>Email</span>
                 <input type="email" />
@@ -317,7 +332,6 @@
             </label>
             <p class="forgot-pass">Forgot password?</p>
             <button type="button" class="submit" onclick="window.location.href='Home.php'">Sign In</button>
-
         </div>
         <div class="sub-cont">
             <div class="img">
@@ -325,7 +339,7 @@
                     <h3>Don't have an account? Please Sign up!</h3>
                 </div>
                 <div class="img__text m--in">
-                    <h3>If you already has an account, just sign in.</h3>
+                    <h3>If you already have an account, just sign in.</h3>
                 </div>
                 <div class="img__btn">
                     <span class="m--up">Sign Up</span>
@@ -346,8 +360,7 @@
                     <span>Password</span>
                     <input type="password" />
                 </label>
-               <button type="button" class="submit" onclick="window.location.href='Home.php'">Sign In</button>
-
+               <button type="button" class="submit" onclick="window.location.href='Home.php'">Sign Up</button>
             </div>
         </div>
     </div>
