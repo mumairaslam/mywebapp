@@ -4,7 +4,7 @@ session_start();
 // Database connection
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "";  
 $dbname = "videos1";
 
 $conn = mysqli_connect($hostname, $username, $password, $dbname);
@@ -50,21 +50,7 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(45deg, #54046f, #e91e63, #4a148c, #f50057);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-        }
-
-        @keyframes gradientBG {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            background-color: #fafafa; /* Lighter background color for a cleaner look */
         }
 
         /* Navigation Bar */
@@ -80,7 +66,7 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
         .nav-bar .logo {
             font-size: 30px;
             font-weight: 600;
-            color: rgb(63, 27, 29);
+            color: #262626;
         }
 
         .nav-bar .profile-btn {
@@ -88,7 +74,6 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             font-size: 18px;
             font-weight: bold;
             text-decoration: none;
-            display: block;
         }
 
         .nav-bar .profile-btn:hover {
@@ -104,7 +89,6 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none;
         }
 
         .nav-bar .logout-btn:hover {
@@ -132,12 +116,13 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             background-color: #ff0c00;
         }
 
-        /* Image Feed Layout */
+        /* Feed Layout */
         .feed {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            gap: 20px;
         }
 
         .post {
@@ -155,7 +140,8 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             transform: scale(1.05);
         }
 
-        .post img {
+        .post img,
+        .post video {
             width: 100%;
             height: 400px;
             object-fit: cover;
@@ -165,66 +151,58 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
             padding: 15px;
         }
 
-        .post-details .post-header {
+        .post-header {
             display: flex;
             align-items: center;
+            margin-bottom: 10px;
         }
 
-        .post-details .post-header img {
+        .post-header img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
         }
 
-        .post-details h4 {
+        .post-header h4 {
             font-size: 16px;
-            margin: 0;
             font-weight: bold;
+            color: #262626;
         }
 
-        .post-details p {
-            font-size: 14px;
-            color: #777;
-            margin-top: 10px;
-        }
-
-        /* Actions below each post */
         .post-actions {
-            margin-top: 10px;
             display: flex;
             justify-content: space-between;
+            margin-top: 10px;
+            font-size: 18px;
         }
 
         .post-actions i {
-            font-size: 18px;
             cursor: pointer;
-            color: #e50914;
+            color: #262626;
             transition: color 0.3s ease;
         }
 
-        /* Liked state - solid heart with a darker red */
-        .post-actions i.liked {
-            color: #ff0c00; /* Liked heart color */
+        .post-actions i:hover {
+            color: #e50914;
         }
 
-        /* Additional styling for the solid heart */
-        .post-actions i.fas {
-            color: #ff0c00; /* Solid heart color */
-        }
-        
-        /* Comment Section Styles */
         .comment-section {
-            margin-top: 15px;
-            padding: 10px;
+            margin-top: 10px;
+            padding: 15px;
             background-color: #f7f7f7;
             border-radius: 5px;
+        }
+
+        .comment-section form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
         .comment-section input[type="text"] {
             width: 80%;
             padding: 8px;
-            margin-right: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -243,12 +221,14 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
         }
 
         .comments-list {
-            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .comment {
-            margin-bottom: 8px;
             font-size: 14px;
+            color: #262626;
         }
 
         .comment span {
@@ -265,14 +245,11 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
         <?php if (isset($_SESSION['username'])): ?>
             <div>
                 <a href="profile.php" class="profile-btn">Profile</a>
-                
             </div>
         <?php endif; ?>
-
-        <!-- Logout Button aligned to the right -->
         <form method="POST" action="" style="display: inline-block; margin-left: 20px;">
-                    <button type="submit" name="logout" class="logout-btn">Logout</button>
-                </form>
+            <button type="submit" name="logout" class="logout-btn">Logout</button>
+        </form>
     </div>
 
     <!-- Upload Button -->
@@ -284,15 +261,36 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
     <div class="feed">
         <?php
         if ($result && mysqli_num_rows($result) > 0) {
-            // Display each post
             while ($row = mysqli_fetch_assoc($result)) {
                 echo '<div class="post">';
-                echo '<img src="uploads/' . $row['file_name'] . '" alt="Post Image">';
+                
+                // Check if the file is an image or a video based on its extension
+                $filePath = 'uploads/' . $row['file_name'];
+                $fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
+                
+                // Display image or video based on file type
+                if (in_array(strtolower($fileExtension), ['jpg', 'jpeg', 'png', 'gif'])) {
+                    echo '<img src="' . $filePath . '" alt="Post Image">';
+                } elseif (in_array(strtolower($fileExtension), ['mp4', 'avi', 'mov'])) {
+                    echo '<video controls><source src="' . $filePath . '" type="video/' . $fileExtension . '">Your browser does not support the video tag.</video>';
+                }
+                
                 echo '<div class="post-details">';
-                echo '<p>' . $row['caption'] . '</p>';
+                echo '<div class="post-header">';
+                echo '<h4>'. "Title:"  . '</h4>';  // Replace with actual avatar
+                echo '<h4>' . $row['title'] . '</h4>';  // Display the title
+                echo '</div>';
+                echo '<h4>'. "File Type : " . $row['caption'] . '</h4>';  // Replace with actual avatar
+                //echo '<h4>' . $row['caption'] .'</h4>';
+                //echo '<p>' . $row['caption'] . '</p>';
+                echo '<p><strong>Location:</strong> ' . $row['location'] . '</p>';
+                echo '<p><strong>Person:</strong> ' . $row['person'] . '</p>';
                 echo '<div class="post-actions">';
                 echo '<i class="far fa-heart like-btn" onclick="toggleLike(this)"></i>';  // Like icon
+                echo '<i class="far fa-comment"></i>';  // Comment icon
+                echo '<i class="far fa-share-square"></i>';  // Share icon
                 echo '</div>';
+                
                 // Fetch comments for each post
                 $comments_query = "SELECT * FROM comments WHERE post_id = " . $row['id'];
                 $comments_result = mysqli_query($conn, $comments_query);
@@ -300,7 +298,7 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
                 echo '<form method="POST" action="">';
                 echo '<input type="text" name="comment" placeholder="Add a comment..." required>';
                 echo '<input type="hidden" name="post_id" value="' . $row['id'] . '">';
-                echo '<button type="submit">Comment</button>';
+                echo '<button type="submit">Post</button>';
                 echo '</form>';
                 echo '<div class="comments-list">';
                 if ($comments_result && mysqli_num_rows($comments_result) > 0) {
@@ -323,22 +321,21 @@ if (isset($_POST['comment']) && isset($_POST['post_id'])) {
 
     <script>
         function toggleLike(button) {
-            // Toggle between liked (solid heart) and unliked (empty heart)
             button.classList.toggle("liked");
 
-            // Optionally, change the icon (from empty to solid heart)
             if (button.classList.contains("liked")) {
                 button.classList.remove("far");
-                button.classList.add("fas"); // 'fas' is for solid icons
+                button.classList.add("fas");
             } else {
                 button.classList.remove("fas");
-                button.classList.add("far"); // 'far' is for regular (empty) icons
+                button.classList.add("far");
             }
         }
     </script>
 
 </body>
 </html>
+
 
 <?php
 mysqli_close($conn);

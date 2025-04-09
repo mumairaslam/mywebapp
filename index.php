@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In / Sign Up</title>
     <style>
+        /* Your existing CSS here */
+
         *,
         *:before,
         *:after {
@@ -12,23 +14,25 @@
             margin: 0;
             padding: 0;
         }
+
         h1 {
-    width: 100%;
-    font-size: 40x;  /* Adjust the font size if needed */
-    text-align: center;
-    color:rgb(0, 0, 0);  /* Adjust the text color */
-    margin-top: 20px;  /* Adjust the top margin */
-    margin-bottom: 40px;  /* Adjust the bottom margin */
-    font-weight: 600;  /* Adjust the font weight */
-    border: 3px solidrgb(56, 57, 58);  /* Adds a border with the same color as the text */
-    border-radius: 15px;  /* Rounds the corners of the border */
-    padding: 10px 20px;  /* Adds space inside the border (padding) */
-    display: inline-block;  /* Makes the heading fit to the content size */
-}
+            width: 100%;
+            font-size: 40px;  /* Adjust the font size */
+            text-align: center;
+            color: #fff;  /* White text color */
+            margin-top: 20px;  /* Adjust the top margin */
+            margin-bottom: 40px;  /* Adjust the bottom margin */
+            font-weight: 600;  /* Adjust the font weight */
+            border: 3px solid #444;  /* Dark border color */
+            border-radius: 15px;  /* Rounds the corners of the border */
+            padding: 10px 20px;  /* Adds space inside the border (padding) */
+            display: inline-block;  /* Makes the heading fit to the content size */
+        }
 
         body {
             font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background: #1a1a1a;  /* Light black background color */
+            color: #f1f1f1;  /* Light gray text color */
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             transition: background-color 1.2s ease;
@@ -67,7 +71,7 @@
             width: 900px;
             height: 550px;
             margin: 0 auto 100px;
-            background: #fff;
+            background: #333;  /* Light black background for the container */
             box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.3), 10px 10px 15px rgba(70, 70, 70, 0.15), inset -10px -10px 15px rgba(255, 255, 255, 0.3), inset 10px 10px 15px rgba(70, 70, 70, 0.15);
         }
 
@@ -87,7 +91,7 @@
             width: 900px;
             height: 100%;
             padding-left: 260px;
-            background: #fff;
+            background: #333;  /* Light black background for the sub-container */
             transition: transform 1.2s ease-in-out;
         }
 
@@ -104,12 +108,12 @@
             color: #fff;
             font-size: 15px;
             cursor: pointer;
-            background: #2575fc;
+            background: #2575fc;  /* Button background color */
             transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #6a11cb;
+            background-color: #6a11cb;  /* Button hover color */
         }
 
         .img {
@@ -259,17 +263,17 @@
             margin-top: 5px;
             padding: 10px 10px;
             font-size: 16px;
-            border: 2px solid #2575fc;
+            border: 2px solid #2575fc;  /* Matching input field border */
             border-radius: 25px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);  /* Dark input background */
             text-align: center;
-            color: #333;
+            color: #fff;
             transition: all 0.3s ease;
         }
 
         input:focus {
-            border-color: #6a11cb;
-            background: rgba(255, 255, 255, 1);
+            border-color: #6a11cb;  /* Focused input border color */
+            background: rgba(255, 255, 255, 0.2);
             color: #6a11cb;
         }
 
@@ -320,15 +324,14 @@
     <h1> Welcome To Instagram Clone </h1>
     <div class="cont">
         <div class="form sign-in">
-           <!-- <h2>Welcome To Instagram Clone</h2>  -->
-           <h2>Log In</h2>
+            <h2>Log In</h2>
             <label>
                 <span>Email</span>
-                <input type="email" />
+                <input type="email" name="email" />
             </label>
             <label>
                 <span>Password</span>
-                <input type="password" />
+                <input type="password" name="password" />
             </label>
             <p class="forgot-pass">Forgot password?</p>
             <button type="button" class="submit" onclick="window.location.href='Home.php'">Sign In</button>
@@ -348,19 +351,28 @@
             </div>
             <div class="form sign-up">
                 <h2>Create your Account</h2>
+                <!-- Added First Name and Last Name fields -->
                 <label>
-                    <span>Name</span>
-                    <input type="text" />
-                </label>
-                <label>
-                    <span>Email</span>
-                    <input type="email" />
-                </label>
-                <label>
-                    <span>Password</span>
-                    <input type="password" />
-                </label>
-               <button type="button" class="submit" onclick="window.location.href='Home.php'">Sign Up</button>
+        <span>First Name</span>
+        <input type="text" name="FName" required />
+    </label>
+    <label>
+        <span>Last Name</span>
+        <input type="text" name="LName" required />
+    </label>
+    <label>
+        <span>Email</span>
+        <input type="email" name="Email" required />
+    </label>
+    
+    <label>
+        <span>Password</span>
+        <input type="password" name="Password" required />
+    </label>
+                <!-- Changed to form submission -->
+                <form action="signup.php" method="POST">
+                    <button type="submit" class="submit">Sign Up</button>
+                </form>
             </div>
         </div>
     </div>
