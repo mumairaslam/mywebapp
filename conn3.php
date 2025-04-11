@@ -1,8 +1,8 @@
 <?php
 //variables
-$hostname = "myserversql.mysql.database.azure.com";
-$username = "umair";
-$password = "Um@ir2464";  
+$hostname = "localhost";
+$username = "root";
+$password = "";  
 $dbname = "videos1";
 
 // check connection

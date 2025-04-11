@@ -1,8 +1,8 @@
 <?php
 // Database connection
-$hostname = "myserversql.mysql.database.azure.com";
-$username = "umair";
-$password = "Um@ir2464";  
+$hostname = "localhost";
+$username = "root";
+$password = "";  
 $dbname = "videos1";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
