@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 11:55 PM
+-- Generation Time: Apr 11, 2025 at 01:02 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,109 +24,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agerating`
---
-
-CREATE TABLE `agerating` (
-  `id` int(11) NOT NULL,
-  `rating_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `agerating`
---
-
-INSERT INTO `agerating` (`id`, `rating_name`) VALUES
-(1, 'G'),
-(2, 'PG'),
-(3, 'PG-13'),
-(4, 'R'),
-(5, 'NC-17');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
-  `video_id` int(11) DEFAULT NULL,
-  `commenter_id` int(11) DEFAULT NULL,
-  `comment` text DEFAULT NULL,
-  `upload_datetime` datetime DEFAULT NULL
+  `post_id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `comment` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `comments`
 --
 
-INSERT INTO `comments` (`id`, `video_id`, `commenter_id`, `comment`, `upload_datetime`) VALUES
-(1, 1, 2, 'Mind-bending movie!', '2024-05-04 15:56:55'),
-(2, 1, 4, 'One of my all-time favorites', '2024-05-04 15:56:55'),
-(3, 2, 1, 'Heath Ledger was phenomenal as the Joker', '2024-05-04 15:56:55'),
-(4, 3, 3, 'Classic movie with an unforgettable ending', '2024-05-04 15:56:55'),
-(5, 4, 5, 'Tom Hanks delivered an outstanding performance', '2024-05-04 15:56:55'),
-(6, 5, 2, 'Marlon Brando was brilliant in this role', '2024-05-04 15:56:55'),
-(7, 7, 6, 'Inshallah', NULL),
-(8, 7, 6, 'test', '2024-05-04 21:47:54'),
-(9, 7, 6, 'hello', '2024-05-04 21:50:22'),
-(10, 7, 6, 'hello', '2024-05-04 21:56:28'),
-(11, 7, 6, 'Hello', '2024-05-04 22:01:04'),
-(12, 7, 7, 'Ots me', '2024-05-04 22:02:48'),
-(13, 1, 7, 'hello', '2024-05-04 22:29:48'),
-(14, 5, 7, 'hello', '2024-05-04 22:40:05'),
-(15, 6, 7, 'hello', '2024-05-04 22:41:36'),
-(16, 3, 7, 'hello', '2024-05-04 22:53:13');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dislikes`
---
-
-CREATE TABLE `dislikes` (
-  `id` int(11) NOT NULL,
-  `video_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `dislike_datetime` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `dislikes`
---
-
-INSERT INTO `dislikes` (`id`, `video_id`, `user_id`, `dislike_datetime`) VALUES
-(1, 1, 4, '2024-05-04 15:56:55'),
-(2, 2, 5, '2024-05-04 15:56:55'),
-(3, 4, 3, '2024-05-04 15:56:55');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `genres`
---
-
-CREATE TABLE `genres` (
-  `id` int(11) NOT NULL,
-  `genre_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `genres`
---
-
-INSERT INTO `genres` (`id`, `genre_name`) VALUES
-(1, 'Action'),
-(2, 'Adventure'),
-(3, 'Comedy'),
-(4, 'Drama'),
-(5, 'Fantasy'),
-(6, 'Horror'),
-(7, 'Mystery'),
-(8, 'Romance'),
-(9, 'Sci-Fi'),
-(10, 'Thriller');
+INSERT INTO `comments` (`id`, `post_id`, `username`, `comment`, `created_at`) VALUES
+(17, 18, '', 'LOVE', '2025-04-04 23:13:29'),
+(18, 19, '', 'Hello', '2025-04-05 21:21:06'),
+(19, 24, '', 'love', '2025-04-09 15:52:40');
 
 -- --------------------------------------------------------
 
@@ -155,6 +71,41 @@ INSERT INTO `likes` (`id`, `video_id`, `user_id`, `like_datetime`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `user_image` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL,
+  `caption` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `title` varchar(255) DEFAULT NULL,
+  `person` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `file_type` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`id`, `username`, `user_image`, `file_name`, `caption`, `created_at`, `title`, `person`, `location`, `updated_at`, `file_type`) VALUES
+(18, '', 'default-avatar.png', 'Screenshot (2).png', 'Hello', '2025-04-04 11:19:28', NULL, NULL, NULL, '2025-04-04 11:49:18', ''),
+(19, 'default', 'default-avatar.png', 'Screenshot (1).png', 'SC1', '2025-04-05 21:17:09', 'My Post', 'Umair', 'London', '2025-04-05 21:17:09', 'image'),
+(20, 'default', 'default-avatar.png', 'MP4.mp4', 'Hello', '2025-04-05 21:34:52', 'My Post', 'Umair', 'London', '2025-04-05 21:34:52', 'video'),
+(21, 'default', 'default-avatar.png', 'MP4.mp4', 'MP4', '2025-04-05 21:35:26', 'My Post', 'Umair', 'London', '2025-04-05 21:35:26', 'video'),
+(22, 'default', 'default-avatar.png', 'MP4.mp4', '1122', '2025-04-05 22:39:50', 'My Post', 'Umair', 'London', '2025-04-05 22:39:50', 'video'),
+(23, 'default', 'default-avatar.png', 'MP4.mp4', 'CAP', '2025-04-05 22:56:05', 'My Post', 'Umair', 'London', '2025-04-05 22:56:05', 'video'),
+(24, 'default', 'default-avatar.png', 'MP4.mp4', 'Helo', '2025-04-09 15:52:27', 'My video', 'Umair', 'Pakistan', '2025-04-09 15:52:27', 'video'),
+(25, 'default', 'default-avatar.png', 'Screenshot (1).png', 'Hello', '2025-04-11 10:19:33', 'My video', 'Umair', 'Pakistan', '2025-04-11 10:19:33', 'image'),
+(26, 'default', 'default-avatar.png', 'Screenshot (6).png', 'hello', '2025-04-11 10:40:02', 'Title', 'Umair', 'London', '2025-04-11 10:40:02', 'image');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -179,7 +130,14 @@ INSERT INTO `users` (`id`, `username`, `password`, `FName`, `LName`, `Email`, `C
 (4, 'saad_khalid', 'password321', 'Saad', 'Khalid', 'saad@example.com', '4567890123'),
 (5, 'sana_malik', 'password654', 'Sana', 'Malik', 'sana@example.com', '3210987654'),
 (6, 'Nabeel', '1234567', 'Nabeel', 'Aslam', 'n@yahoo.com', '1234567'),
-(7, 'Sharjeel', '1234567', 'Sharjeel', 'Aslam', 's@yahoo.com', '123');
+(7, 'Sharjeel', '1234567', 'Sharjeel', 'Aslam', 's@yahoo.com', '123'),
+(8, 'muhammadumairaslam81@gmail.com', '112233', 'Muhammad', 'Umair Aslam', 'muhammadumairaslam81@gmail.com', '03055882464'),
+(10, '', '$2y$10$RzEwjLRc471JaIjR7MBjb.F0eV92gYzHhFOY9QBMV5uRyxi/TS68W', '', '', '', ''),
+(11, '', '$2y$10$Jp39LKlHuQMkB9C7oC80JuVi5RPfPKxA4hvBvLVr7clew7hh0r/76', '', '', '', ''),
+(12, '', '', '', '', '', ''),
+(13, '', '', '', '', '', ''),
+(14, '', '', '', '', '', ''),
+(15, '', '$2y$10$hbwDVSH6QhjMX/wHAqJlI.o7wvp6j5pigH92nh6MHYW7z9qitblxG', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -219,32 +177,11 @@ INSERT INTO `videos` (`id`, `title`, `description`, `filename`, `thumbnail`, `up
 --
 
 --
--- Indexes for table `agerating`
---
-ALTER TABLE `agerating`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `video_id` (`video_id`),
-  ADD KEY `commenter_id` (`commenter_id`);
-
---
--- Indexes for table `dislikes`
---
-ALTER TABLE `dislikes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `video_id` (`video_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `genres`
---
-ALTER TABLE `genres`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `post_id` (`post_id`);
 
 --
 -- Indexes for table `likes`
@@ -253,6 +190,12 @@ ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `video_id` (`video_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -272,28 +215,10 @@ ALTER TABLE `videos`
 --
 
 --
--- AUTO_INCREMENT for table `agerating`
---
-ALTER TABLE `agerating`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `dislikes`
---
-ALTER TABLE `dislikes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `genres`
---
-ALTER TABLE `genres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `likes`
@@ -302,10 +227,16 @@ ALTER TABLE `likes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `videos`
@@ -321,15 +252,7 @@ ALTER TABLE `videos`
 -- Constraints for table `comments`
 --
 ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`commenter_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `dislikes`
---
-ALTER TABLE `dislikes`
-  ADD CONSTRAINT `dislikes_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`),
-  ADD CONSTRAINT `dislikes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `likes`

@@ -3,7 +3,7 @@ session_start();
 
 $hostname = "localhost";
 $username = "root";
-$password = "";
+$password = "";  
 $dbname = "videos1";
 
 $conn = mysqli_connect($hostname, $username, $password, $dbname);
