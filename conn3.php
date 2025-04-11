@@ -1,9 +1,9 @@
 <?php
 //variables
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$dbname = "videos";
+$hostname = "myserversql.mysql.database.azure.com";
+$username = "umair";
+$password = "Um@ir2464";  
+$dbname = "videos1";
 
 // check connection
 $conn = mysqli_connect($hostname, $username, $password, $dbname)

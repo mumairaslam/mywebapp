@@ -2,8 +2,8 @@
 
 $hostname = "localhost";
 $username = "root";
-$password = "";
-$dbname = "videos";
+$password = "";  
+$dbname = "videos1";
 
 // connection to database
 
